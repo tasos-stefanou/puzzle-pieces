@@ -59,6 +59,34 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
+app.delete('/delete', async (req, res) => {
+  const { bucket, folder, fileName } = req.query;
+
+  if (!bucket || !folder || !fileName) {
+    return res.status(500).json({ error_message: 'Bucket, folder and file name are required' });
+  }
+
+  try {
+    await s3.headBucket({ Bucket: bucket }).promise();
+
+    const params = {
+      Bucket: bucket,
+      Key: `${folder}/${fileName}`,
+    };
+
+    await s3.deleteObject(params).promise();
+
+    return res.status(200).json({ message: 'File deleted successfully' });
+  } catch (err) {
+    console.log(err);
+    if (err.code === 'NotFound') {
+      return res.status(500).json({ error_message: 'Bucket does not exist' });
+    } else {
+      return res.status(500).json({ error_message: 'Failed to delete file from S3' });
+    }
+  }
+});
+
 app.get('/get-links', async (req, res) => {
   const { bucket, folder } = req.query;
 

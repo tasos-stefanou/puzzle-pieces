@@ -3,13 +3,30 @@ import { TextField, Button, Pagination, Typography } from '@mui/material';
 import FilterByFileType from './FilterByFileType';
 import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { LoadingButton } from '@mui/lab';
 
-const UploadedItemsGrid = ({ links }) => {
+const UploadedItemsGrid = ({ links, bucket, folder, onDeleteSuccess }) => {
   const [searchText, setSearchText] = useState('');
   const [filter, setFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [loadingIndex, setLoadingIndex] = useState(-1);
 
   const itemsPerPage = 5;
+
+  const deleteFile = async (fileName, indexToBeDeleted) => {
+    setLoadingIndex(indexToBeDeleted);
+    try {
+      const { data } = await axios.delete(`http://localhost:4002/delete?bucket=${bucket}&folder=${folder}&fileName=${fileName}`);
+      onDeleteSuccess();
+      toast.success('File deleted successfully');
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.error_message);
+    }
+    setLoadingIndex(-1);
+  };
 
   const handlePageChange = (event, newPage) => {
     setCurrentPage(newPage);
@@ -62,6 +79,16 @@ const UploadedItemsGrid = ({ links }) => {
                   {link.split('/').pop().split('?')[0]}
                 </a>
               </div>
+              <LoadingButton
+                style={{ marginLeft: 'auto' }}
+                onClick={() => deleteFile(link.split('/').pop().split('?')[0], index)}
+                variant='text'
+                color='error'
+                size='small'
+                loading={loadingIndex === index}
+              >
+                Delete
+              </LoadingButton>
             </div>
           ))}
         </div>

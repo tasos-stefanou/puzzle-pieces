@@ -32,7 +32,7 @@ const App = () => {
   return (
     <div>
       <InternalToaster />
-      {isLoading ? <CircularProgress /> : <UploadedItemsGrid links={links} />}
+      {isLoading ? <CircularProgress /> : <UploadedItemsGrid links={links} bucket={bucket} folder={folder} onDeleteSuccess={getAllLinks} />}
       <UploadItemComponent onSuccess={getAllLinks} bucket={bucket} folder={folder} />
     </div>
   );
