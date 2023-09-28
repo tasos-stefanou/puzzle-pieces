@@ -1,0 +1,56 @@
+.registrantsGridContainer {
+  display: grid;
+  place-items: center;
+}
+.registrantsGrid {
+  /* padding: '1rem', */
+  /* display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  row-gap: 2rem;
+  column-gap: 2rem;
+  width: fit-content;
+}
+
+.registrantsGridContainerList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.registrantsGridContainerTitles {
+  display: grid;
+  width: fit-content;
+  column-gap: 2rem;
+  padding-inline: 1.5em;
+  align-items: center;
+  grid-template-columns: 500px 500px 300px;
+  text-align: center;
+}
+
+.ListViewRegistrants {
+  display: grid;
+  width: fit-content;
+  column-gap: 2rem;
+  padding: 1.5em;
+  align-items: center;
+  grid-template-columns: 500px 500px 300px;
+  box-shadow: 3px 3px 10px #6448ef2b;
+  border-radius: 8px;
+  justify-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .registrantsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 650px) {
+  .registrantsGrid {
+    grid-template-columns: 1fr;
+  }
+}
