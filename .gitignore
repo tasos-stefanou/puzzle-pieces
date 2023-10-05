@@ -2,3 +2,7 @@
 # make it ignore all node_modules 
 node_modules
 
+
+upload-file-to-s3/server/s3BatchNotGeneratedPNGs.js
+
+upload-file-to-s3/server/s3diff_old.js

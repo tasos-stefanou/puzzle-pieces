@@ -108,7 +108,7 @@ const AuthenticationProvider = ({ children }) => {
       console.log(data);
       toast.success('You registered as admin successfully!');
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.error_message);
       console.error(error.response.status, error.response.data.message);
       if (error.response.status === 403) console.log('Cannot register');
     }
