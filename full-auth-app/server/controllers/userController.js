@@ -35,8 +35,10 @@ const registerUser = async (req, res) => {
       const newActivateAccountToken = await ActivateAccountToken.create({
         userId: newUser._id,
       });
-      sendActivationEmail(newUser.email, newActivateAccountToken._id);
-      return res.status(201).json(newActivateAccountToken);
+      // sendActivationEmail(newUser.email, newActivateAccountToken._id);
+      return res.status(201).json({
+        activationURL: `http://localhost:3000/activate/${newActivateAccountToken._id}`,
+      });
     } catch (error) {
       console.log('Could not create aa token');
       return res.status(500).json({ error_message: 'Could not create token!' });

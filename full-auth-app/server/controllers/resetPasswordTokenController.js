@@ -1,4 +1,3 @@
-import asyncHandler from 'express-async-handler';
 import ResetPasswordToken from '../models/resetPasswordTokenModel.js';
 import User from '../models/userModel.js';
 import { sendResetPasswordEmail } from '../utils/emails.js';
@@ -25,8 +24,10 @@ const generateResetPasswordToken = async (req, res) => {
   });
 
   if (resetPasswordToken) {
-    sendResetPasswordEmail(email, resetPasswordToken._id);
-    return res.status(201).json(resetPasswordToken);
+    // sendResetPasswordEmail(email, resetPasswordToken._id);
+    return res.status(201).json({
+      resetPassURL: `http://localhost:3000/reset-password/${resetPasswordToken._id}`,
+    });
   } else {
     return res.status(400).json({ error_message: 'Sorry, could not reset password!' });
   }

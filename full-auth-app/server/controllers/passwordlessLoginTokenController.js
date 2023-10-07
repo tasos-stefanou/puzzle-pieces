@@ -26,7 +26,9 @@ const generatePasswordlessLoginToken = async (req, res) => {
   try {
     const createdPasswordlessLoginToken = await passwordlessLoginToken.save();
     sendPasswordlessLoginEmail(email, createdPasswordlessLoginToken._id);
-    res.status(201).json({ message: 'Email was sent successfully!' });
+    res.status(201).json({
+      passwordlessLoginURL: `http://localhost:3000/login-with-magic-link/${createdPasswordlessLoginToken._id}`,
+    });
   } catch (error) {
     res.status(500).json({ error_message: 'Could not send email!' });
   }
