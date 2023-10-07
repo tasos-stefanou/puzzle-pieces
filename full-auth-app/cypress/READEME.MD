@@ -6,15 +6,28 @@ This repository contains Cypress tests to verify user registration functionality
 
 To get started with running the User Registration tests, follow these steps:
 
-1. Clone this repository:
+1. Install dependencies:
 
    ```bash
    npm install
    ```
 
-2. Run tests on browser:
+2. Run both client and backend servers:
 
    ```bash
+   cd client
+   npm start
+   ```
+
+   ```bash
+   cd server
+   npm start
+   ```
+
+3. Run tests on browser:
+
+   ```bash
+   cd root directory
    npx cypress open
    ```
 
