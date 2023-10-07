@@ -14,13 +14,12 @@ describe('Register User API', () => {
                 expect(response.status).to.eq(201);
                 expect(response.body.activationURL).to.exist;
                 apiActivationURL = response.body.activationURL;
+                // Visit the activation URL intercepted by the API post request
+                cy.visit(apiActivationURL);
+                cy.url().should('contain', '/home');
+                cy.get('.MuiTypography-root').should('contain.text', 'You are logged in!');
             });
     });
-
-    it('should activate a new user', () => {
-        // Visit the activation URL intercepted by the API post request
-        cy.visit(apiActivationURL);
-    })
 });
 
 describe('Register user via UI', () => {
